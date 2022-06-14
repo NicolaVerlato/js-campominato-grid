@@ -73,15 +73,15 @@ while(endGame){
 
     // se l'utente azzecca tutti i numeri giusti
     if(goodAttempt.length === maxAttempts){
-        alert('Hai Vinto!');
+        endOfGame('win', goodAttempt.length);
         endGame = false;
     } else if(bombsArray.includes(userNumber)){
         // se l'utente calpesta una bomba
         endGame = false;
-        alert('Hai Perso!');
-        alert('Il tuo punteggio è: ' + goodAttempt.length);
+        endOfGame('lose', goodAttempt.length);
     }
 }
+
 
 // console.log(goodAttempt);    
     
@@ -94,7 +94,6 @@ while(endGame){
 function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1) ) + min;
 }
-
 
 // funzione per creare array bombe random
 function randomBombs(min, max) {
@@ -111,4 +110,13 @@ function randomBombs(min, max) {
 }
 
 // funzione per endGame
+function endOfGame(result, score) {
 
+    if(result === 'win') {
+        alert('Hai Vinto!');
+        alert(score);
+    } else {
+        alert('Hai perso');
+        alert('Il tuo punteggio è: ' + score);
+    }
+}
