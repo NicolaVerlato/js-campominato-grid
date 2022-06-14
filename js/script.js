@@ -25,8 +25,8 @@
 const difficultyLevel = parseInt(prompt('Dimmi un livello di difficoltà da 1 a 3'));
 
 // Chiedere all'utente un numero
-const userNumber = parseInt(prompt('Dimmi un numero'))
-
+// const userNumber = parseInt(prompt('Dimmi un numero'))
+const goodAttempt = [];
 
 let maxNumber;
 if(difficultyLevel === 1) {
@@ -38,7 +38,7 @@ if(difficultyLevel === 1) {
 }
 
 
-// bombe
+// numero massimo bombe
 const maxbombs = 16;
 
 // array bombe
@@ -57,19 +57,29 @@ const maxAttempts = maxNumber - bombsArray.length;
 
 // il gioco finisce quando endGame === false
 let endGame = true;
-for( let i = 0; i < bombsArray.length; i++){
-    const bomb = bombsArray[i];
-    console.log(bomb)
-    if(userNumber === bomb){
-        alert('Hai Perso!');
+
+while(endGame){
+    const userNumber = parseInt(prompt('Dimmi un numero'))
+    if(!goodAttempt.includes(userNumber)) {
+        goodAttempt.push(userNumber);
+    } else{
+        alert('Numero già inserito');
+    }
+
+    // se l'utente azzecca tutti i numeri giusti
+    if(goodAttempt.length === maxAttempts){
+        alert('Hai Vinto!');
         endGame = false;
+    } else if(bombsArray.includes(userNumber)){
+        // se l'utente calpesta una bomba
+        endGame = false;
+        alert('Hai Perso!');
+        alert('Il tuo punteggio è: ' + goodAttempt.length);
     }
 }
 
-
-
-
-
+// console.log(goodAttempt);    
+    
 
 
 // ------------------
@@ -79,3 +89,4 @@ for( let i = 0; i < bombsArray.length; i++){
 function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1) ) + min;
   }
+
