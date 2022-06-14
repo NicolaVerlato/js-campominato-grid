@@ -24,10 +24,10 @@
 // Chiedere all'utente il livello di difficoltà
 const difficultyLevel = parseInt(prompt('Dimmi un livello di difficoltà da 1 a 3'));
 
-// Chiedere all'utente un numero
-// const userNumber = parseInt(prompt('Dimmi un numero'))
+// array per i tentativi buoni dell'utente
 const goodAttempt = [];
 
+// massimo di numeri in base al livello di difficoltà
 let maxNumber;
 if(difficultyLevel === 1) {
     maxNumber = 100;
@@ -37,19 +37,22 @@ if(difficultyLevel === 1) {
     maxNumber = 49;
 }
 
-
 // numero massimo bombe
 const maxbombs = 16;
 
-// array bombe
-const bombsArray = [];
+// array bombe senza funzione
+// const bombsArray = [];
 
-while(bombsArray.length < maxbombs) {
-    const bombs = getRndInteger(1, maxNumber);
-    if(!bombsArray.includes(bombs)) {
-        bombsArray.push(bombs);
-    }
-}
+// while(bombsArray.length < maxbombs) {
+//     const bombs = getRndInteger(1, maxNumber);
+//     if(!bombsArray.includes(bombs)) {
+//         bombsArray.push(bombs);
+//     }
+// }
+
+// array bombe con funzione (l'array è dento la funzione)
+const bombsArray = randomBombs(1, maxbombs);
+
 console.log(bombsArray)
 
 // numero massimo di tentativi
@@ -58,6 +61,8 @@ const maxAttempts = maxNumber - bombsArray.length;
 // il gioco finisce quando endGame === false
 let endGame = true;
 
+// Chiedere all'utente un numero finchè il numero stesso è uguale al numero della bomba
+// se l'utente non prende nessuna bomba verrà mandato un alert di vittoria
 while(endGame){
     const userNumber = parseInt(prompt('Dimmi un numero'))
     if(!goodAttempt.includes(userNumber)) {
@@ -88,5 +93,22 @@ while(endGame){
 // funzione per generare le bombe
 function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min + 1) ) + min;
-  }
+}
+
+
+// funzione per creare array bombe random
+function randomBombs(min, max) {
+    const array = [];
+
+    while(array.length < max) {
+        const bombs = getRndInteger(min, maxNumber);
+        if(!array.includes(bombs)) {
+            array.push(bombs);
+        }
+    }
+
+    return array;
+}
+
+// funzione per endGame
 
